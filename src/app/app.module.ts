@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers/index';
@@ -20,6 +20,10 @@ import { AccountComponent } from './component/account/account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialUiModule } from './materialUi.module';
 import { AccountService } from './services/account.service';
+import { AccountFormComponent } from './component/accountForm/accountForm.component';
+import { FormErrorComponent } from './component/common/form-error/form-error.component';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+
 
 @NgModule({
 	declarations: [
@@ -27,7 +31,9 @@ import { AccountService } from './services/account.service';
 		TodoComponent,
 		NavigationsComponent,
 		CustomersComponent,
-		AccountComponent,
+    AccountComponent,
+    AccountFormComponent,
+    FormErrorComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -37,11 +43,13 @@ import { AccountService } from './services/account.service';
 		EffectsModule.forRoot([ CurrencyEffects, ErrorEffects, AccountEffects ]),
 		StoreModule.forRoot(reducers),
     BrowserAnimationsModule,
-    MaterialUiModule
-
+    MaterialUiModule,
+    ReactiveFormsModule,
+    StoreRouterConnectingModule.forRoot(),
   ],
   entryComponents: [NavigationsComponent],
 	providers: [ CurrencyService, AccountService ],
 	bootstrap: [ AppComponent, NavigationsComponent ]
 })
 export class AppModule {}
+

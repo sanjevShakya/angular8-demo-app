@@ -1,7 +1,7 @@
 export interface Account {
   accountDescription: String,
   accountHolderName: String,
-  acccountHolderPhoneNumber: String,
-  accountNumber: String,
+  accountHolderPhoneNumber: String,
+  accountNumber: Number,
   id: String
 }

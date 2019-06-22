@@ -1,0 +1,51 @@
+<div class="account-form-wrapper">
+    <form
+        [formGroup]="accountForm"
+        (ngSubmit)="onSubmit()"
+    >
+        <label>
+            Account Description:
+            <input
+                type="text"
+                formControlName="accountDescription"
+            >
+            <app-form-error-field [field]="accountForm.controls.accountDescription"></app-form-error-field>
+        </label>
+
+        <label>
+            Account Holder Name:
+            <input
+                type="text"
+                formControlName="accountHolderName"
+            >
+            <app-form-error-field [field]="accountForm.controls.accountHolderName"></app-form-error-field>
+
+        </label>
+
+        <label>
+            Account Holder Phone Number:
+            <input
+                type="text"
+                formControlName="accountHolderPhoneNumber"
+            >
+            <app-form-error-field [field]="accountForm.controls.accountHolderPhoneNumber"></app-form-error-field>
+
+        </label>
+
+        <label>
+            Account Number:
+            <input
+                id="accountNumber"
+                type="text"
+                formControlName="accountNumber"
+            >
+            <app-form-error-field [field]="accountForm.controls.accountNumber"></app-form-error-field>
+        </label>
+
+        <button
+            type="submit"
+        >
+            Submit
+        </button>
+    </form>
+</div>

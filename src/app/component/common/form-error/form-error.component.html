@@ -1,0 +1,10 @@
+<div
+    *ngIf="field.invalid && (field.dirty || field.touched)"
+    class="alert alert-danger"
+>
+
+    <div *ngIf="field.errors.required">Field is required.</div>
+    <div *ngIf="field.errors.minlength">
+        Field must be at least {{ field.errors.minlength.requiredLength }} characters long.
+    </div>
+</div>

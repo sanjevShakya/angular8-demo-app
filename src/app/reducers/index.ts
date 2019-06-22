@@ -2,6 +2,8 @@ import { Currency } from './../models/currency';
 import { Account } from './../models/account';
 import * as fromAmount from './amount';
 import * as fromCurrency from './currency';
+import * as fromAccount from './account';
+import { routerReducer } from '@ngrx/router-store';
 
 export interface State {
   amount: number,
@@ -10,9 +12,10 @@ export interface State {
 }
 
 export const reducers = {
-  accounts: fromAmount.reducer,
+  accounts: fromAccount.reducer,
   amount: fromAmount.reducer,
-  currencies: fromCurrency.reducer
+  currencies: fromCurrency.reducer,
+  router: routerReducer,
 }
 
 export const getAmountState =(state: State) => state.amount;

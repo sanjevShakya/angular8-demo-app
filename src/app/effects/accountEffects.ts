@@ -1,4 +1,3 @@
-
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -8,6 +7,8 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import * as errorActions from '../actions/error';
 import * as accountActions from '../actions/account';
 import { AccountService } from '../services/account.service';
+import { Account } from '../models/account';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AccountEffects {
@@ -17,13 +18,31 @@ export class AccountEffects {
 		switchMap(() =>
 			this.accountService.fetchAccounts().pipe(
 				map((data: any) => {
-          console.log(data);
+					console.log(data);
 					return new accountActions.AccountsStoreAction(data);
-        }),
-        catchError(error => of(new errorActions.ErrorAction(error, { showConsole: true, ifCompletedActions: []})))
+				}),
+				catchError((error) =>
+					of(new errorActions.ErrorAction(error, { showConsole: true, ifCompletedActions: [] }))
+				)
 			)
 		)
 	);
 
-	constructor(private accountService: AccountService, private actions$: Actions) {}
+	@Effect()
+	add$: Observable<Action> = this.actions$.pipe(
+		ofType(accountActions.ADD_ACCOUNTS),
+		switchMap(({ payload }) => {
+			console.log(payload);
+
+			return this.accountService.addAccount(payload).pipe(
+				map((data: any) => {
+					console.log(data);
+          this.router.navigate(['/customers'])
+					return { type: 'noop'};
+				})
+			);
+		})
+	);
+
+	constructor(private accountService: AccountService, private actions$: Actions, private router: Router) {}
 }
