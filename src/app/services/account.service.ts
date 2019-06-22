@@ -16,5 +16,10 @@ export class AccountService {
 
 	addAccount(account): Observable<Account> {
 		return this.http.post<any>('http://localhost:8080/payments-system/account/add', { ...account });
-	}
+  }
+
+  fetchAccount(accountId): Observable<Account> {
+    console.log('service',accountId);
+    return this.http.get<any>(`http://localhost:8080/payments-system/account/${accountId}`);
+  }
 }

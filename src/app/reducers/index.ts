@@ -7,7 +7,10 @@ import { routerReducer } from '@ngrx/router-store';
 
 export interface State {
   amount: number,
-  accounts: Account[]
+  accounts: {
+    accountList: Account[],
+    currentAccount: Account,
+  }
   currencies: Currency[]
 }
 
@@ -20,4 +23,5 @@ export const reducers = {
 
 export const getAmountState =(state: State) => state.amount;
 export const getCurrencyRates = (state: State) => state.currencies;
-export const getAccountsState = (state: State) => state.accounts;
+export const getAccountsState = (state: State) => state.accounts.accountList;
+export const getCurrentAccountState = (state: State) => state.accounts.currentAccount;

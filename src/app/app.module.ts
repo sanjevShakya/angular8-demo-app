@@ -23,6 +23,7 @@ import { AccountService } from './services/account.service';
 import { AccountFormComponent } from './component/accountForm/accountForm.component';
 import { FormErrorComponent } from './component/common/form-error/form-error.component';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { AccountDetailComponent } from './component/account-detail/account-detail.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     AccountComponent,
     AccountFormComponent,
     FormErrorComponent,
+    AccountDetailComponent
 	],
 	imports: [
 		BrowserModule,

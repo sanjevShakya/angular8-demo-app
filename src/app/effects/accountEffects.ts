@@ -37,8 +37,21 @@ export class AccountEffects {
 			return this.accountService.addAccount(payload).pipe(
 				map((data: any) => {
 					console.log(data);
-          this.router.navigate(['/customers'])
-					return { type: 'noop'};
+					this.router.navigate([ '/customers' ]);
+					return { type: 'noop' };
+				})
+			);
+		})
+	);
+
+  @Effect()
+	fetchById$: Observable<Action> = this.actions$.pipe(
+		ofType(accountActions.FETCH_ACCOUNT_BY_ID),
+		switchMap(({ payload }) => {
+      console.log('observable', payload)
+			return this.accountService.fetchAccount(payload).pipe(
+				map((data: Account) => {
+					return new accountActions.StoreCurrentAccount(data);
 				})
 			);
 		})
