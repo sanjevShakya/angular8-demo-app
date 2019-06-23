@@ -17,6 +17,38 @@ export class PaymentComponent implements OnInit {
     this.payments$ = store.select(fromRoot.getPaymentsState);
   }
 
+  public gridHeaders = [
+		{
+			name: 'sn',
+      displayName: 'S/N',
+      classes: ['flex-1']
+		},
+		{
+			name: 'sourceAccountNumber',
+			displayName: 'Source Account Number',
+      type: 'content',
+      classes: ['flex-3']
+		},
+		{
+			name: 'destinationAccountNumber',
+			displayName: 'Destination Account Number',
+      type: 'content',
+      classes: ['flex-3']
+
+		},
+		{
+			name: 'currencyCode',
+			displayName: 'Currency Code',
+      type: 'content',
+      classes: ['flex-3']
+		},
+		{
+			name: 'action',
+      displayName: 'Actions',
+      classes: ['flex-1']
+		}
+  ];
+
   ngOnInit() {
 		this.store.dispatch(new paymentActions.PaymentsFetchAction());
   }

@@ -21,8 +21,8 @@ export class PaymentFormComponent implements OnInit {
 		amount: new FormControl('', [ Validators.required ]),
 		currencyCode: new FormControl('', [ Validators.required ]),
 		destinationAccountNumber: new FormControl('', [ Validators.required ]),
-		paymentDescription: new FormControl('', [ Validators.required, Validators.minLength(6) ]),
-		sourceAccountNumber: new FormControl('', [ Validators.required, Validators.minLength(6) ])
+		paymentDescription: new FormControl('', []),
+		sourceAccountNumber: new FormControl('', [ Validators.required ])
   });
 
   filteredOptions: Observable<string[]>;

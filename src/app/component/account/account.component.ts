@@ -6,22 +6,51 @@ import { Observable } from 'rxjs';
 import { Account } from '../../models/account';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-account',
+	templateUrl: './account.component.html',
+	styleUrls: [ './account.component.css' ],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent implements OnInit {
-  public accounts$: Observable<Account[]>;
-  constructor(public store: Store<fromRoot.State>) {
-    this.accounts$ = store.select(fromRoot.getAccountsState);
-  }
+	public accounts$: Observable<Account[]>;
+	constructor(public store: Store<fromRoot.State>) {
+		this.accounts$ = store.select(fromRoot.getAccountsState);
+	}
 
-  ngOnInit() {
+	public gridHeaders = [
+		{
+			name: 'sn',
+      displayName: 'S/N',
+      classes: ['flex-1']
+		},
+		{
+			name: 'accountHolderName',
+			displayName: 'Account Holder Name',
+      type: 'content',
+      classes: ['flex-3']
+		},
+		{
+			name: 'accountNumber',
+			displayName: 'Account Number',
+      type: 'content',
+      classes: ['flex-3']
+
+		},
+		{
+			name: 'accountHolderPhoneNumber',
+			displayName: 'Account Holder Phone Number',
+      type: 'content',
+      classes: ['flex-3']
+		},
+		{
+			name: 'action',
+      displayName: 'Actions',
+      classes: ['flex-1']
+		}
+  ];
+
+	ngOnInit() {
 		this.store.dispatch(new accountActions.AccountsFetchAction());
-  }
+	}
 
-  editAccount(account:Account) {
-    console.log('navigate with', account);
-  }
 }

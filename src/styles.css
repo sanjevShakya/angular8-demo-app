@@ -1,13 +1,65 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+ul li {
+  list-style: none;
+}
 
 .flex {
-  display: flex;
+	display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
+}
+
+.flex-3 {
+  flex: 3;
 }
 
 .flex-column {
-  flex-direction: column;
+	flex-direction: column;
+}
+
+.grid {
+	display: flex;
+	flex-direction: column;
+}
+
+.grid-header ul {
+	display: flex;
+	flex-direction: row;
+}
+
+.grid-body-content li {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #dfdfdf;
+
+}
+
+.grid-body-content li .grid-item {
+  flex: 1;
+}
+
+.grid-body-content li .grid-action-item {
+  flex: 1;
+}
+
+
+.grid-body-content li .grid-index-item {
+  flex: 0.2;
 }

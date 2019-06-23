@@ -1,6 +1,36 @@
-<div class="account-wrapper">
-  <div class="account-detail" *ngFor="let account of (accounts$ | async)">
-    <span>{{account.accountNumber}}</span>
-    <a [title]="account.accountName" [routerLink]="['/accounts', account.id]">Details</a>
-  </div>
-</div>
+<app-card title="Payments">
+    <div class="grid">
+        <div class="grid-header">
+            <ul class="flex">
+                <li *ngFor="let header of gridHeaders" [ngClass]="header.classes">
+                    <strong>{{ header.displayName }}</strong>
+                </li>
+            </ul>
+        </div>
+        <div class="grid-body-wrapper">
+            <ul class="grid-body-content">
+                <li *ngFor="let payment of (payments$ | async); index as i">
+                    <div class="flex" *ngFor="let header of gridHeaders" [ngClass]="header.classes" >
+                        <span
+                            *ngIf="header.name === 'sn'"
+                        >
+                            {{i + 1 }}
+                        </span>
+                        <span
+                            *ngIf="header.type === 'content'"
+                        >
+                            {{ payment[header.name] }}
+                        </span>
+                        <a
+                            *ngIf="header.name === 'action'"
+                            [title]="payment.paymentName"
+                            [routerLink]="['/payments', payment.id]"
+                        >
+                            Details
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</app-card>
