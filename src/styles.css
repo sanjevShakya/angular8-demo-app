@@ -48,6 +48,11 @@ ul li {
 	flex-direction: row;
 }
 
+.grid .grid-body-content {
+  max-height: 70vh;
+  overflow: auto;
+}
+
 .grid-body-content li {
   display: flex;
   padding: 15px 0;

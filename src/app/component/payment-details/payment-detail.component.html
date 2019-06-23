@@ -1,4 +1,4 @@
-<app-card title="Payment Details">
+<app-card title="Payment Details" [goBack]="navigateToPayments">
     <div *ngIf="payment$ | async as payment">
         <h3>
             <span class="h3-subtitle">From A/N</span>

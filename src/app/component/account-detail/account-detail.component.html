@@ -1,4 +1,4 @@
-<app-card title="Account Details">
+<app-card title="Account Details" [goBack]="navigateToAccounts">
     <div *ngIf="account$ | async as account">
         <h3>{{account.accountNumber}}</h3>
         <div class="content-container">

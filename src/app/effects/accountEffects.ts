@@ -9,6 +9,7 @@ import * as accountActions from '../actions/account';
 import { AccountService } from '../services/account.service';
 import { Account } from '../models/account';
 import { Router } from '@angular/router';
+import { ACCOUNT_MESSAGES } from '../constants';
 
 @Injectable()
 export class AccountEffects {
@@ -16,40 +17,64 @@ export class AccountEffects {
 	fetch$: Observable<Action> = this.actions$.pipe(
 		ofType(accountActions.FETCH_ACCOUNTS),
 		switchMap(() =>
-			this.accountService.fetchAccounts().pipe(
+			this.accountService
+				.fetchAccounts()
+				.pipe(
+					map((data: any) => new accountActions.AccountsStoreAction(data)),
+					catchError((error) =>
+						of(
+							new errorActions.ErrorAction(error, {
+								showConsole: true,
+								ifCompletedActions: [],
+								message: ACCOUNT_MESSAGES.FETCH_ERROR
+							})
+						)
+					)
+				)
+		)
+	);
+
+  @Effect()
+	add$: Observable<Action> = this.actions$.pipe(
+		ofType(accountActions.ADD_ACCOUNTS),
+		switchMap(({ payload }) =>
+			this.accountService.addAccount(payload).pipe(
 				map((data: any) => {
-					return new accountActions.AccountsStoreAction(data);
+					this.router.navigate([ '/accounts' ]);
+					return { type: 'noop' };
 				}),
 				catchError((error) =>
-					of(new errorActions.ErrorAction(error, { showConsole: true, ifCompletedActions: [] }))
+					of(
+						new errorActions.ErrorAction(error, {
+							showConsole: true,
+							ifCompletedActions: [],
+							message: ACCOUNT_MESSAGES.POST_ERROR
+						})
+					)
 				)
 			)
 		)
 	);
 
 	@Effect()
-	add$: Observable<Action> = this.actions$.pipe(
-		ofType(accountActions.ADD_ACCOUNTS),
-		switchMap(({ payload }) => {
-			return this.accountService.addAccount(payload).pipe(
-				map((data: any) => {
-					this.router.navigate([ '/customers' ]);
-					return { type: 'noop' };
-				})
-			);
-		})
-	);
-
-  @Effect()
 	fetchById$: Observable<Action> = this.actions$.pipe(
 		ofType(accountActions.FETCH_ACCOUNT_BY_ID),
-		switchMap(({ payload }) => {
-			return this.accountService.fetchAccount(payload).pipe(
-				map((data: Account) => {
-					return new accountActions.StoreCurrentAccount(data);
-				})
-			);
-		})
+		switchMap(({ payload }) =>
+			this.accountService
+				.fetchAccount(payload)
+				.pipe(
+					map((data: Account) => new accountActions.StoreCurrentAccount(data)),
+					catchError((error) =>
+						of(
+							new errorActions.ErrorAction(error, {
+								showConsole: true,
+								ifCompletedActions: [],
+								message: ACCOUNT_MESSAGES.FETCH_BY_ID_ERROR
+							})
+						)
+					)
+				)
+		)
 	);
 
 	constructor(private accountService: AccountService, private actions$: Actions, private router: Router) {}

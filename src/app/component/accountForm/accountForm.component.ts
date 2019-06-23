@@ -33,7 +33,9 @@ export class AccountFormComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.store.dispatch(new accountActions.AccountAddAction(this.accountForm.value));
+		if (this.accountForm.valid) {
+			this.store.dispatch(new accountActions.AccountAddAction(this.accountForm.value));
+		}
 	}
 
 	getErrorMessage(fieldName) {
