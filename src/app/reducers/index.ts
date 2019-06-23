@@ -15,7 +15,7 @@ export interface State {
   }
   payments: {
     paymentList: Payment[],
-    currenctPayment: Payment,
+    currentPayment: Payment,
   }
   currencies: Currency[]
 }
@@ -33,4 +33,4 @@ export const getCurrencyRates = (state: State) => state.currencies;
 export const getAccountsState = (state: State) => state.accounts.accountList;
 export const getCurrentAccountState = (state: State) => state.accounts.currentAccount;
 export const getPaymentsState = (state: State) => state.payments.paymentList;
-export const getCurrentPaymentState = (state: State) => state.payments.currenctPayment;
+export const getCurrentPaymentState = (state: State) => state.payments.currentPayment;

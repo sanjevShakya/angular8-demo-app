@@ -13,7 +13,6 @@ export class ErrorEffects {
 	update$: Observable<Action> = this.actions$.pipe(
 		ofType(errorActions.HANDLE_ERROR),
     map((errDetails) => {
-      console.log(errDetails);
       return new errorActions.ErrorHandled();
     })
 	);

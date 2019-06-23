@@ -17,7 +17,6 @@ export class CurrencyEffects {
 		switchMap(() =>
 			this.currencyService.getRates().pipe(
 				map((data: any) => {
-          console.log(data);
 					return new currenctActions.CurrenciesUpdatedAction(data);
         }),
         catchError(error => of(new errorActions.ErrorAction(error, { showConsole: true, ifCompletedActions: []})))

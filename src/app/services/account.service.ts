@@ -19,7 +19,6 @@ export class AccountService {
   }
 
   fetchAccount(accountId): Observable<Account> {
-    console.log('service',accountId);
     return this.http.get<any>(`http://localhost:8080/payments-system/account/${accountId}`);
   }
 }

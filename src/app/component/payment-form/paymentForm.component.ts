@@ -9,6 +9,7 @@ import { Account } from '../../models/account';
 import { startWith, map, filter } from 'rxjs/operators';
 import { ValueTransformer } from '@angular/compiler/src/util';
 import { Currency } from 'src/app/models/currency';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-payment-form',
@@ -33,7 +34,7 @@ export class PaymentFormComponent implements OnInit {
   public currencyCodes$: Observable<Currency[]>;
   public filteredDestinationAccounts: Observable<Account[]>;
 
-	constructor(public store: Store<fromRoot.State>, private fb: FormBuilder) {
+	constructor(public store: Store<fromRoot.State>, private fb: FormBuilder, private router: Router) {
     this.accounts$ = store.select(fromRoot.getAccountsState);
     this.currencyCodes$ = store.select(fromRoot.getCurrencyRates);
 	}
@@ -41,7 +42,8 @@ export class PaymentFormComponent implements OnInit {
 	ngOnInit() {
 		// this.store.dispatch(new paymentActions.PaymentsFetchAction());
 		// is Create or edit form
-		this.store.dispatch(new accountActions.AccountsFetchAction());
+    this.store.dispatch(new accountActions.AccountsFetchAction());
+    this.cancelPayment = this.cancelPayment.bind(this);
 
     this.accounts$.subscribe(accounts => {
       this.filteredAccounts = this.paymentForm.get('sourceAccountNumber').valueChanges.pipe(
@@ -66,5 +68,9 @@ export class PaymentFormComponent implements OnInit {
 
 	onSubmit() {
 		this.store.dispatch(new paymentActions.PaymentAddAction(this.paymentForm.value));
-	}
+  }
+
+  cancelPayment() {
+    this.router.navigate(['/payments'])
+  }
 }

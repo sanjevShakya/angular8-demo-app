@@ -16,11 +16,10 @@ export class PaymentDetailComponent implements OnInit {
 
   constructor(public store: Store<fromRoot.State>, private route: ActivatedRoute) {
     this.payment$ = store.select(fromRoot.getCurrentPaymentState);
-    console.log('constructor', this.payment$);
+
   }
 
   ngOnInit() {
-    console.log(this.route);
     this.route.paramMap.subscribe(params => {
       const paymentId = params.get('paymentId');
       this.store.dispatch(new paymentActions.PaymentFetchAction(paymentId));

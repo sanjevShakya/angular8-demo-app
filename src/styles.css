@@ -63,3 +63,17 @@ ul li {
 .grid-body-content li .grid-index-item {
   flex: 0.2;
 }
+
+.content-container .content-subtitle{
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.content-container {
+  padding: 10px 0;
+}
+
+.h3-subtitle {
+  font-weight: 500;
+  font-size: 14px;
+}

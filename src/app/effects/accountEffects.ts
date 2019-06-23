@@ -18,7 +18,6 @@ export class AccountEffects {
 		switchMap(() =>
 			this.accountService.fetchAccounts().pipe(
 				map((data: any) => {
-					console.log(data);
 					return new accountActions.AccountsStoreAction(data);
 				}),
 				catchError((error) =>
@@ -32,11 +31,8 @@ export class AccountEffects {
 	add$: Observable<Action> = this.actions$.pipe(
 		ofType(accountActions.ADD_ACCOUNTS),
 		switchMap(({ payload }) => {
-			console.log(payload);
-
 			return this.accountService.addAccount(payload).pipe(
 				map((data: any) => {
-					console.log(data);
 					this.router.navigate([ '/customers' ]);
 					return { type: 'noop' };
 				})
@@ -48,7 +44,6 @@ export class AccountEffects {
 	fetchById$: Observable<Action> = this.actions$.pipe(
 		ofType(accountActions.FETCH_ACCOUNT_BY_ID),
 		switchMap(({ payload }) => {
-      console.log('observable', payload)
 			return this.accountService.fetchAccount(payload).pipe(
 				map((data: Account) => {
 					return new accountActions.StoreCurrentAccount(data);

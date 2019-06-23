@@ -16,11 +16,9 @@ export class AccountDetailComponent implements OnInit {
 
   constructor(public store: Store<fromRoot.State>, private route: ActivatedRoute) {
     this.account$ = store.select(fromRoot.getCurrentAccountState);
-    console.log('constructor', this.account$);
   }
 
   ngOnInit() {
-    console.log(this.route);
     this.route.paramMap.subscribe(params => {
       const accountId = params.get('accountId');
       this.store.dispatch(new accountActions.AccountFetchAction(accountId));

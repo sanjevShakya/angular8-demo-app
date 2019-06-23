@@ -18,7 +18,6 @@ export class PaymentEffects {
 		switchMap(() =>
 			this.paymentService.fetchPayments().pipe(
 				map((data: any) => {
-					console.log(data);
 					return new paymentActions.PaymentsStoreAction(data);
 				}),
 				catchError((error) =>
@@ -32,11 +31,8 @@ export class PaymentEffects {
 	add$: Observable<Action> = this.actions$.pipe(
 		ofType(paymentActions.ADD_PAYMENTS),
 		switchMap(({ payload }) => {
-			console.log(payload);
-
 			return this.paymentService.addPayment(payload).pipe(
 				map((data: any) => {
-					console.log(data);
 					this.router.navigate([ '/customers' ]);
 					return { type: 'noop' };
 				})
@@ -48,7 +44,6 @@ export class PaymentEffects {
 	fetchById$: Observable<Action> = this.actions$.pipe(
 		ofType(paymentActions.FETCH_PAYMENT_BY_ID),
 		switchMap(({ payload }) => {
-      console.log('observable', payload)
 			return this.paymentService.fetchPayment(payload).pipe(
 				map((data: Payment) => {
 					return new paymentActions.StoreCurrentPayment(data);

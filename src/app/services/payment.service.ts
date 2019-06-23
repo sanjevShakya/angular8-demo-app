@@ -19,7 +19,6 @@ export class PaymentService {
   }
 
   fetchPayment(paymentId): Observable<Payment> {
-    console.log('service',paymentId);
     return this.http.get<any>(`http://localhost:8080/payments-system/payment/${paymentId}`);
   }
 }

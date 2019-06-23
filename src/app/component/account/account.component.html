@@ -2,7 +2,10 @@
     <div class="grid">
         <div class="grid-header">
             <ul class="flex">
-                <li *ngFor="let header of gridHeaders" [ngClass]="header.classes">
+                <li
+                    *ngFor="let header of gridHeaders"
+                    [ngClass]="header.classes"
+                >
                     <strong>{{ header.displayName }}</strong>
                 </li>
             </ul>
@@ -10,24 +13,21 @@
         <div class="grid-body-wrapper">
             <ul class="grid-body-content">
                 <li *ngFor="let account of (accounts$ | async); index as i">
-                    <div class="flex" *ngFor="let header of gridHeaders" [ngClass]="header.classes" >
-                        <span
-                            *ngIf="header.name === 'sn'"
-                        >
-                            {{i + 1 }}
-                        </span>
-                        <span
-                            *ngIf="header.type === 'content'"
-                        >
-                            {{ account[header.name] }}
-                        </span>
-                        <a
+                    <div
+                        class="flex"
+                        *ngFor="let header of gridHeaders"
+                        [ngClass]="header.classes"
+                    >
+                        <span *ngIf="header.name === 'sn'">{{i + 1 }}</span>
+                        <span *ngIf="header.type === 'content'">{{ account[header.name] }}</span>
+                        <button
+                            mat-button
                             *ngIf="header.name === 'action'"
                             [title]="account.accountName"
                             [routerLink]="['/accounts', account.id]"
                         >
                             Details
-                        </a>
+                        </button>
                     </div>
                 </li>
             </ul>

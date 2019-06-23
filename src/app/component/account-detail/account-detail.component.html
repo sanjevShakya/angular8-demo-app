@@ -1,11 +1,17 @@
-<div class="account-detail-wrapper" *ngIf="account$ | async as account">
-  <h1>account details</h1>
-  <span>{{ account.accountNumber }}</span>
-    <span>{{ account.accountHolderName }}</span>
-    <span>
-        {{ account.accountHolderPhoneNumber }}
-    </span>
-    <span>
-        {{ account.accountDescription  }}
-    </span>
-</div>
+<app-card title="Account Details">
+    <div *ngIf="account$ | async as account">
+        <h3>{{account.accountNumber}}</h3>
+        <div class="content-container">
+            <p class="content-subtitle">Phone Number</p>
+            <p class="content">{{ account.accountHolderPhoneNumber }}</p>
+        </div>
+        <div class="content-container">
+            <p class="content-subtitle">Account Name</p>
+            <p class="content">{{ account.accountHolderName }}</p>
+        </div>
+        <div class="content-container">
+            <p class="content-subtitle">Account Description</p>
+            <p class="content">{{account.accountDescription}}</p>
+        </div>
+    </div>
+</app-card>
