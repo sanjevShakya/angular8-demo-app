@@ -24,6 +24,11 @@ import { AccountFormComponent } from './component/accountForm/accountForm.compon
 import { FormErrorComponent } from './component/common/form-error/form-error.component';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AccountDetailComponent } from './component/account-detail/account-detail.component';
+import { PaymentEffects } from './effects/paymentEffects';
+import { PaymentComponent } from './component/payment/payment.component';
+import { PaymentDetailComponent } from './component/payment-details/payment-detail.component';
+import { PaymentFormComponent } from './component/payment-form/paymentForm.component';
+import { CardComponent } from './component/common/card/card.component';
 
 
 @NgModule({
@@ -35,14 +40,18 @@ import { AccountDetailComponent } from './component/account-detail/account-detai
     AccountComponent,
     AccountFormComponent,
     FormErrorComponent,
-    AccountDetailComponent
+    AccountDetailComponent,
+    PaymentComponent,
+    PaymentDetailComponent,
+    PaymentFormComponent,
+    CardComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		FormsModule,
 		HttpClientModule,
-		EffectsModule.forRoot([ CurrencyEffects, ErrorEffects, AccountEffects ]),
+		EffectsModule.forRoot([ CurrencyEffects, ErrorEffects, AccountEffects, PaymentEffects ]),
 		StoreModule.forRoot(reducers),
     BrowserAnimationsModule,
     MaterialUiModule,

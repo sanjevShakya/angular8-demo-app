@@ -1,0 +1,6 @@
+<div class="account-wrapper">
+  <div class="account-detail" *ngFor="let account of (accounts$ | async)">
+    <span>{{account.accountNumber}}</span>
+    <a [title]="account.accountName" [routerLink]="['/accounts', account.id]">Details</a>
+  </div>
+</div>

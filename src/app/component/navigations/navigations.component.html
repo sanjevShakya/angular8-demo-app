@@ -1,13 +1,45 @@
-<div class="navigation-wrapper">
-  <div class="navigation-container">
-    <ul>
-      <li><a [title]="todo" [routerLink]="['/todos']">Todo</a></li>
-      <li><a [title]="customer" [routerLink]="['/customers']">Customers</a></li>
-      <li><a [title]="Account" [routerLink]="['/accounts']">Todo</a></li>
-    </ul>
-  </div>
-  <mat-drawer-container>
-    <mat-drawer mode="side" opened>Drawer content</mat-drawer>
-    <mat-drawer-content>Main content</mat-drawer-content>
-  </mat-drawer-container>
+<div class="app-container">
+    <mat-toolbar>
+        <span>Payment Demo App</span>
+    </mat-toolbar>
+    <mat-drawer-container class="app-content-wrapper">
+        <mat-drawer
+            mode="side"
+            opened
+        >
+            <mat-action-list>
+                <button
+                    mat-list-item
+                    [title]="Account"
+                    [routerLink]="['/accounts']"
+                >
+                    Accounts
+                </button>
+                <button
+                    mat-list-item
+                    [title]="Account"
+                    [routerLink]="['/accounts/add']"
+                >
+                    Add Accounts
+                </button>
+                <button
+                    mat-list-item
+                    [title]="Payments"
+                    [routerLink]="['/payments']"
+                >
+                    Payments
+                </button>
+                <button
+                    mat-list-item
+                    [title]="Payments"
+                    [routerLink]="['/payments/add']"
+                >
+                    Make Payments
+                </button>
+            </mat-action-list>
+        </mat-drawer>
+        <mat-drawer-content>
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+    </mat-drawer-container>
 </div>

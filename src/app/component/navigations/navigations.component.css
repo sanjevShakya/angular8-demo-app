@@ -1,0 +1,11 @@
+.app-container {
+  height: 100vh;
+}
+
+.app-content-wrapper {
+  height: calc(100vh - 64px);
+}
+
+.app-content-wrapper a {
+  text-decoration: none;
+}

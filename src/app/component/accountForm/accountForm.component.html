@@ -1,51 +1,64 @@
-<div class="account-form-wrapper">
+<app-card title="Add Account">
     <form
         [formGroup]="accountForm"
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="onSubmit(accountForm.value)"
+        class="flex flex-column"
     >
-        <label>
-            Account Description:
+
+        <mat-form-field>
             <input
-                type="text"
-                formControlName="accountDescription"
+                matInput
+                name="accountNumber"
+                placeholder="Enter your account number"
+                [formControl]="accountForm.controls.accountNumber"
+                required
             >
-            <app-form-error-field [field]="accountForm.controls.accountDescription"></app-form-error-field>
-        </label>
+            <mat-error *ngIf="accountForm.controls.accountNumber.status ==='INVALID'">{{getErrorMessage('accountNumber')}}</mat-error>
+        </mat-form-field>
 
-        <label>
-            Account Holder Name:
+        <mat-form-field>
             <input
-                type="text"
-                formControlName="accountHolderName"
+                matInput
+                name="accountHolderName"
+                placeholder="Enter your account holders name"
+                [formControl]="accountForm.controls.accountHolderName"
+                required
             >
-            <app-form-error-field [field]="accountForm.controls.accountHolderName"></app-form-error-field>
+            <mat-error *ngIf="accountForm.controls.accountHolderName.status ==='INVALID'">
+                {{getErrorMessage('accountHolderName')}}
+            </mat-error>
+        </mat-form-field>
 
-        </label>
-
-        <label>
-            Account Holder Phone Number:
+        <mat-form-field>
             <input
-                type="text"
-                formControlName="accountHolderPhoneNumber"
+                matInput
+                name="accountHolderPhoneNumber"
+                placeholder="Enter your account holder's phone number"
+                [formControl]="accountForm.controls.accountHolderPhoneNumber"
             >
-            <app-form-error-field [field]="accountForm.controls.accountHolderPhoneNumber"></app-form-error-field>
+            <mat-error *ngIf="accountForm.controls.accountHolderPhoneNumber.status ==='INVALID'">
+                {{getErrorMessage('accountHolderPhoneNumber')}}
+            </mat-error>
+        </mat-form-field>
 
-        </label>
-
-        <label>
-            Account Number:
+        <mat-form-field>
             <input
-                id="accountNumber"
-                type="text"
-                formControlName="accountNumber"
+                matInput
+                name="accountDescription"
+                placeholder="Enter your account description"
+                [formControl]="accountForm.controls.accountDescription"
             >
-            <app-form-error-field [field]="accountForm.controls.accountNumber"></app-form-error-field>
-        </label>
+            <mat-error *ngIf="accountForm.controls.accountDescription.status ==='INVALID'">
+                {{getErrorMessage('accountDescription')}}
+            </mat-error>
+        </mat-form-field>
 
-        <button
-            type="submit"
-        >
-            Submit
-        </button>
+        <div>
+          <button mat-button color="primary" type="submit">Submit</button>
+          <button mat-button >Cancel</button>
+
+        </div>
+
+
     </form>
-</div>
+  </app-card>

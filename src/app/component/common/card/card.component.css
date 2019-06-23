@@ -1,0 +1,9 @@
+.card-content-wrapper {
+  margin: 20px;
+  overflow: auto;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
