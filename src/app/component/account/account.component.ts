@@ -45,7 +45,7 @@ export class AccountComponent implements OnInit {
 		},
 		{
 			name: 'accountHolderPhoneNumber',
-			displayName: 'Account Holder Phone Number',
+			displayName: 'Phone Number',
       type: 'content',
       classes: ['flex-3']
 		},

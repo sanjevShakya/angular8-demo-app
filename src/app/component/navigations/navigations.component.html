@@ -2,7 +2,7 @@
     <mat-toolbar>
         <span>Payment Demo App</span>
     </mat-toolbar>
-    <mat-drawer-container class="app-content-wrapper">
+    <!-- <mat-drawer-container class="app-content-wrapper">
         <mat-drawer
             mode="side"
             opened
@@ -10,36 +10,49 @@
             <mat-action-list>
                 <button
                     mat-list-item
+                    class="navigation-buttons"
                     [title]="Account"
                     [routerLink]="['/accounts']"
                 >
                     Accounts
                 </button>
                 <button
-                    mat-list-item
-                    [title]="Account"
-                    [routerLink]="['/accounts/add']"
-                >
-                    Add Accounts
-                </button>
-                <button
+                    class="navigation-buttons"
                     mat-list-item
                     [title]="Payments"
                     [routerLink]="['/payments']"
                 >
                     Payments
                 </button>
-                <button
-                    mat-list-item
-                    [title]="Payments"
-                    [routerLink]="['/payments/add']"
-                >
-                    Make Payments
-                </button>
             </mat-action-list>
         </mat-drawer>
         <mat-drawer-content>
             <router-outlet></router-outlet>
         </mat-drawer-content>
-    </mat-drawer-container>
+    </mat-drawer-container> -->
+    <div class="flex">
+        <div class="flex-1 side-nav">
+            <mat-action-list>
+                <button
+                    mat-list-item
+                    class="navigation-buttons"
+                    [title]="Account"
+                    [routerLink]="['/accounts']"
+                >
+                    Accounts
+                </button>
+                <button
+                    class="navigation-buttons"
+                    mat-list-item
+                    [title]="Payments"
+                    [routerLink]="['/payments']"
+                >
+                    Payments
+                </button>
+            </mat-action-list>
+        </div>
+        <div class="flex-5">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>

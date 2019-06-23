@@ -1,9 +1,24 @@
 .card-content-wrapper {
+  max-width: 60em;
+  margin: 0 auto;
+}
+
+.card-content-container {
   margin: 20px;
   overflow: auto;
+  background: #fff;
+  position: relative;
+  box-shadow: 0 5px 10px rgba(0,0,0,.05);
+  min-height: 55px;
+  margin-bottom: 8px;
 }
 
 .card-content {
   display: flex;
   flex-direction: column;
+}
+
+.card-toolbar-container {
+  display: flex;
+  justify-content: space-between;
 }

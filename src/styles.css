@@ -30,6 +30,10 @@ ul li {
   flex: 3;
 }
 
+.flex-5 {
+  flex: 5;
+}
+
 .flex-column {
 	flex-direction: column;
 }

@@ -73,4 +73,22 @@ export class PaymentFormComponent implements OnInit {
   cancelPayment() {
     this.router.navigate(['/payments'])
   }
+
+  getErrorMessage(fieldName) {
+		const field = this.paymentForm.controls[fieldName];
+		if (!field.errors) {
+			return '';
+		}
+		if (field.errors.required) {
+			return 'Field value is required';
+		}
+		if (field.errors.minlength) {
+			return `Field must be at least ${field.errors.minlength.requiredLength} characters long.`;
+		}
+
+		if (field.errors.pattern && field.errors.pattern.requiredPattern === '^[0-9]+$') {
+			return `Field should be a number`;
+		}
+		return '';
+	}
 }

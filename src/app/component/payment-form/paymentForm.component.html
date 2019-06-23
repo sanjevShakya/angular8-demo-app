@@ -25,6 +25,9 @@
                     {{option.accountNumber + " " + option.accountHolderName}}
                 </mat-option>
             </mat-autocomplete>
+            <mat-error *ngIf="paymentForm.controls.sourceAccountNumber.status ==='INVALID'">
+                {{getErrorMessage('sourceAccountNumber')}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -48,6 +51,9 @@
                     {{option.accountNumber + " " + option.accountHolderName}}
                 </mat-option>
             </mat-autocomplete>
+            <mat-error *ngIf="paymentForm.controls.destinationAccountNumber.status ==='INVALID'">
+                {{getErrorMessage('destinationAccountNumber')}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -60,6 +66,9 @@
                     {{currency}}
                 </mat-option>
             </mat-select>
+            <mat-error *ngIf="paymentForm.controls.currencyCode.status ==='INVALID'">
+                {{getErrorMessage('currencyCode')}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -69,6 +78,9 @@
                 type="number"
                 [formControl]="paymentForm.controls.amount"
             >
+            <mat-error *ngIf="paymentForm.controls.amount.status ==='INVALID'">
+                {{getErrorMessage('amount')}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field>
