@@ -24,57 +24,66 @@ export class PaymentFormComponent implements OnInit {
 		destinationAccountNumber: new FormControl('', [ Validators.required ]),
 		paymentDescription: new FormControl('', []),
 		sourceAccountNumber: new FormControl('', [ Validators.required ])
-  });
+	});
 
-  filteredOptions: Observable<string[]>;
+	filteredOptions: Observable<string[]>;
 
 	public accounts$: Observable<Account[]>;
-  public filteredAccounts: Observable<Account[]>;
-  public filteredCurrencyCodes: Observable<Account[]>;
-  public currencyCodes$: Observable<Currency[]>;
-  public filteredDestinationAccounts: Observable<Account[]>;
+	public filteredAccounts: Observable<Account[]>;
+	public filteredCurrencyCodes: Observable<Account[]>;
+	public currencyCodes$: Observable<Currency[]>;
+	public filteredDestinationAccounts: Observable<Account[]>;
 
 	constructor(public store: Store<fromRoot.State>, private fb: FormBuilder, private router: Router) {
-    this.accounts$ = store.select(fromRoot.getAccountsState);
-    this.currencyCodes$ = store.select(fromRoot.getCurrencyRates);
+		this.accounts$ = store.select(fromRoot.getAccountsState);
+		this.currencyCodes$ = store.select(fromRoot.getCurrencyRates);
 	}
 
 	ngOnInit() {
 		// this.store.dispatch(new paymentActions.PaymentsFetchAction());
 		// is Create or edit form
-    this.store.dispatch(new accountActions.AccountsFetchAction());
-    this.cancelPayment = this.cancelPayment.bind(this);
+		this.store.dispatch(new accountActions.AccountsFetchAction());
+		this.cancelPayment = this.cancelPayment.bind(this);
 
-    this.accounts$.subscribe(accounts => {
-      this.filteredAccounts = this.paymentForm.get('sourceAccountNumber').valueChanges.pipe(
-        startWith(''),
-        map((value) => {
-          const filterValue = value.toString().toLowerCase();
+		this.accounts$.subscribe((accounts) => {
+			this.filteredAccounts = this.paymentForm.get('sourceAccountNumber').valueChanges.pipe(
+				startWith(''),
+				map((value) => {
+					const filterValue = value.toString().toLowerCase();
 
-          return accounts.filter(account => account.accountNumber.toString().indexOf(filterValue) === 0 || account.accountHolderName.toString().indexOf(filterValue) === 0);
-        })
-      );
+					return accounts.filter(
+						(account) =>
+							account.accountNumber.toString().indexOf(filterValue) === 0 ||
+							account.accountHolderName.toString().indexOf(filterValue) === 0
+					);
+				})
+			);
 
-      this.filteredDestinationAccounts = this.paymentForm.get('destinationAccountNumber').valueChanges.pipe(
-        startWith(''),
-        map((value) => {
-          const filterValue = value.toString().toLowerCase();
-
-          return accounts.filter(account => account.accountNumber.toString().indexOf(filterValue) === 0 || account.accountHolderName.toString().indexOf(filterValue) === 0);
-        })
-      );
-    })
+			this.filteredDestinationAccounts = this.paymentForm.get('destinationAccountNumber').valueChanges.pipe(
+				startWith(''),
+				map((value) => {
+					const filterValue = value.toString().toLowerCase();
+					return accounts.filter(
+						(account) =>
+							account.accountNumber.toString().indexOf(filterValue) === 0 ||
+							account.accountHolderName.toString().indexOf(filterValue) === 0
+					);
+				})
+			);
+		});
 	}
 
 	onSubmit() {
-		this.store.dispatch(new paymentActions.PaymentAddAction(this.paymentForm.value));
-  }
+		if (this.paymentForm.valid) {
+			this.store.dispatch(new paymentActions.PaymentAddAction(this.paymentForm.value));
+		}
+	}
 
-  cancelPayment() {
-    this.router.navigate(['/payments'])
-  }
+	cancelPayment() {
+		this.router.navigate([ '/payments' ]);
+	}
 
-  getErrorMessage(fieldName) {
+	getErrorMessage(fieldName) {
 		const field = this.paymentForm.controls[fieldName];
 		if (!field.errors) {
 			return '';

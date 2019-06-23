@@ -1,36 +1,61 @@
 <app-card title="Payments" [actionButtonConfig]="actionButtonConfig">
-    <div class="grid">
-        <div class="grid-header">
-            <ul class="flex">
-                <li
+
+  <div class="grid">
+    <div class="grid-header">
+      <ul class="flex">
+          <li
+              *ngFor="let header of gridHeaders"
+              [ngClass]="header.classes"
+          >
+              <strong>{{ header.displayName }}</strong>
+          </li>
+      </ul>
+    </div>
+    <input class="grid-search" type="text" placeholder="Search..." [formControl]="searchText"/>
+
+    <div class="grid-body-wrapper">
+      <ul class="grid-body-content">
+        <div *ngIf="!searchText.value">
+            <li *ngFor="let payment of (payments$ | async); index as i">
+                <div
+                    class="flex"
                     *ngFor="let header of gridHeaders"
                     [ngClass]="header.classes"
                 >
-                    <strong>{{ header.displayName }}</strong>
-                </li>
-            </ul>
-        </div>
-        <div class="grid-body-wrapper">
-            <ul class="grid-body-content">
-                <li *ngFor="let payment of (payments$ | async); index as i">
-                    <div
-                        class="flex"
-                        *ngFor="let header of gridHeaders"
-                        [ngClass]="header.classes"
+                    <span *ngIf="header.name === 'sn'">{{i + 1 }}</span>
+                    <span *ngIf="header.type === 'content'">{{ payment[header.name] }}</span>
+                    <button
+                        mat-button
+                        *ngIf="header.name === 'action'"
+                        [title]="payment.paymentName"
+                        [routerLink]="['/payments', payment.id]"
                     >
-                        <span *ngIf="header.name === 'sn'">{{i + 1 }}</span>
-                        <span *ngIf="header.type === 'content'">{{ payment[header.name] }}</span>
-                        <button
-                            mat-button
-                            *ngIf="header.name === 'action'"
-                            [title]="payment.paymentName"
-                            [routerLink]="['/payments', payment.id]"
-                        >
-                            Details
-                        </button>
-                    </div>
-                </li>
-            </ul>
+                        Details
+                    </button>
+                </div>
+            </li>
         </div>
+          <div *ngIf="searchText.value">
+              <li *ngFor="let payment of (filteredPayments$ | async); index as i">
+                  <div
+                      class="flex"
+                      *ngFor="let header of gridHeaders"
+                      [ngClass]="header.classes"
+                  >
+                      <span *ngIf="header.name === 'sn'">{{i + 1 }}</span>
+                      <span *ngIf="header.type === 'content'">{{ payment[header.name] }}</span>
+                      <button
+                          mat-button
+                          *ngIf="header.name === 'action'"
+                          [title]="payment.paymentName"
+                          [routerLink]="['/payments', payment.id]"
+                      >
+                          Details
+                      </button>
+                  </div>
+              </li>
+          </div>
+      </ul>
     </div>
+  </div>
 </app-card>

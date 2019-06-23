@@ -86,3 +86,12 @@ ul li {
   font-weight: 500;
   font-size: 14px;
 }
+
+.grid-search {
+  position: absolute;
+  top: -48px;
+  left: 25%;
+  min-width: 250px;
+  min-height: 24px;
+  padding-left: 10px;
+}
