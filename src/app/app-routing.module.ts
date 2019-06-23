@@ -10,41 +10,37 @@ import { PaymentDetailComponent } from './component/payment-details/payment-deta
 import { PaymentFormComponent } from './component/payment-form/paymentForm.component';
 
 const routes: Routes = [
-  {
-    path: 'todos',
-    component: TodoComponent
-  },
-  {
-    path: 'customers',
-    component: CustomersComponent
-  },
-  {
-    path: 'accounts',
-    component: AccountComponent
-  },
-  {
-    path: 'accounts/add',
-    component: AccountFormComponent
-  },
-  {
-    path: 'accounts/:accountId',
-    component: AccountDetailComponent
-  },
+	{
+		path: 'accounts',
+		component: AccountComponent
+	},
+	{
+		path: 'accounts/add',
+		component: AccountFormComponent
+	},
+	{
+		path: 'accounts/:accountId',
+		component: AccountDetailComponent
+	},
 
-  {
-    path: 'payments',
-    component: PaymentComponent
-  },
-  {
-    path: 'payments/add',
-    component: PaymentFormComponent
-  },
-  {
-    path: 'payments/:paymentId',
-    component: PaymentDetailComponent
-  },
-
- ];
+	{
+		path: 'payments',
+		component: PaymentComponent
+	},
+	{
+		path: 'payments/add',
+		component: PaymentFormComponent
+	},
+	{
+		path: 'payments/:paymentId',
+		component: PaymentDetailComponent
+	},
+	{
+		path: '',
+		redirectTo: '/accounts',
+		pathMatch: 'full'
+	}
+];
 
 @NgModule({
 	imports: [ RouterModule.forRoot(routes) ],
