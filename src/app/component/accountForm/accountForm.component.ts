@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as accountActions from '../../actions/account';
 import * as fromRoot from '../../reducers';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-account-form',
@@ -22,7 +23,9 @@ export class AccountFormComponent implements OnInit {
 		])
 	});
 
-	constructor(public store: Store<fromRoot.State>, private fb: FormBuilder) {}
+	constructor(public store: Store<fromRoot.State>, private router: Router) {
+		this.cancelAddAccount = this.cancelAddAccount.bind(this);
+	}
 
 	ngOnInit() {
 		// this.store.dispatch(new accountActions.AccountsFetchAction());
@@ -49,5 +52,9 @@ export class AccountFormComponent implements OnInit {
 			return `Field should be a number`;
 		}
 		return '';
+	}
+
+	cancelAddAccount() {
+		this.router.navigate([ '/accounts' ]);
 	}
 }

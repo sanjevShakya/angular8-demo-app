@@ -4,6 +4,7 @@ import * as accountActions from '../../actions/account';
 import * as fromRoot from '../../reducers';
 import { Observable } from 'rxjs';
 import { Account } from '../../models/account';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-account',
@@ -13,9 +14,15 @@ import { Account } from '../../models/account';
 })
 export class AccountComponent implements OnInit {
 	public accounts$: Observable<Account[]>;
-	constructor(public store: Store<fromRoot.State>) {
+	constructor(public store: Store<fromRoot.State>, private router: Router) {
 		this.accounts$ = store.select(fromRoot.getAccountsState);
-	}
+  }
+
+  public actionButtonConfig = {
+		title: 'Add Account',
+		onActionButtonClick: this.addAccount.bind(this),
+	};
+
 
 	public gridHeaders = [
 		{
@@ -51,6 +58,10 @@ export class AccountComponent implements OnInit {
 
 	ngOnInit() {
 		this.store.dispatch(new accountActions.AccountsFetchAction());
-	}
+  }
+
+  addAccount() {
+    this.router.navigate(['/accounts/add']);
+  }
 
 }

@@ -1,4 +1,7 @@
-<app-card title="Add Account">
+<app-card
+    title="Add Account"
+    [goBack]="cancelAddAccount"
+>
     <form
         [formGroup]="accountForm"
         (ngSubmit)="onSubmit(accountForm.value)"
@@ -54,11 +57,15 @@
         </mat-form-field>
 
         <div>
-          <button mat-button color="primary" type="submit">Submit</button>
-          <button mat-button >Cancel</button>
-
+            <button
+                mat-button
+                color="primary"
+                type="submit"
+            >
+                Submit
+            </button>
+            <button mat-button type="button" (click)="cancelAddAccount()">Cancel</button>
         </div>
 
-
     </form>
-  </app-card>
+</app-card>
