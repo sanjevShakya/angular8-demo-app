@@ -1,24 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Payment } from '../models/payment';
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PaymentService {
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient, @Inject('APP_BASE_URL') private baseUrl: string) {}
 
 	fetchPayments(): Observable<Payment[]> {
-		return this.http.get<any>('http://localhost:8080/payments-system/payment');
+		return this.http.get<any>(`${this.baseUrl}/payment`);
 	}
 
 	addPayment(payment): Observable<Payment> {
-		return this.http.post<any>('http://localhost:8080/payments-system/payment/add', { ...payment });
+		return this.http.post<any>(`${this.baseUrl}/payment/add`, { ...payment });
   }
 
   fetchPayment(paymentId): Observable<Payment> {
-    return this.http.get<any>(`http://localhost:8080/payments-system/payment/${paymentId}`);
+    return this.http.get<any>(`${this.baseUrl}/payment/${paymentId}`);
   }
 }

@@ -7,10 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers/index';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { CurrencyEffects } from './effects/currencyEffects';
-import { AccountEffects} from './effects/accountEffects';
+import { AccountEffects } from './effects/accountEffects';
 import { ErrorEffects } from './effects/errorEffects';
 import { CurrencyService } from './services/currency.service';
 import { TodoComponent } from './component/todo/todo.component';
@@ -29,7 +29,7 @@ import { PaymentComponent } from './component/payment/payment.component';
 import { PaymentDetailComponent } from './component/payment-details/payment-detail.component';
 import { PaymentFormComponent } from './component/payment-form/paymentForm.component';
 import { CardComponent } from './component/common/card/card.component';
-
+import { environment } from 'src/environments/environment';
 
 @NgModule({
 	declarations: [
@@ -37,14 +37,14 @@ import { CardComponent } from './component/common/card/card.component';
 		TodoComponent,
 		NavigationsComponent,
 		CustomersComponent,
-    AccountComponent,
-    AccountFormComponent,
-    FormErrorComponent,
-    AccountDetailComponent,
-    PaymentComponent,
-    PaymentDetailComponent,
-    PaymentFormComponent,
-    CardComponent
+		AccountComponent,
+		AccountFormComponent,
+		FormErrorComponent,
+		AccountDetailComponent,
+		PaymentComponent,
+		PaymentDetailComponent,
+		PaymentFormComponent,
+		CardComponent
 	],
 	imports: [
 		BrowserModule,
@@ -53,14 +53,17 @@ import { CardComponent } from './component/common/card/card.component';
 		HttpClientModule,
 		EffectsModule.forRoot([ CurrencyEffects, ErrorEffects, AccountEffects, PaymentEffects ]),
 		StoreModule.forRoot(reducers),
-    BrowserAnimationsModule,
-    MaterialUiModule,
-    ReactiveFormsModule,
-    StoreRouterConnectingModule.forRoot(),
-  ],
-  entryComponents: [NavigationsComponent],
-	providers: [ CurrencyService, AccountService ],
+		BrowserAnimationsModule,
+		MaterialUiModule,
+		ReactiveFormsModule,
+		StoreRouterConnectingModule.forRoot()
+	],
+	entryComponents: [ NavigationsComponent ],
+	providers: [
+		{ provide: 'APP_BASE_URL', useValue: environment.apiUrl },
+		CurrencyService,
+		AccountService
+	],
 	bootstrap: [ AppComponent, NavigationsComponent ]
 })
 export class AppModule {}
-
