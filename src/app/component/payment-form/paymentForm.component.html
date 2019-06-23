@@ -1,0 +1,107 @@
+<app-card title="Make Payment" [goBack]="cancelPayment">
+    <form
+        [formGroup]="paymentForm"
+        (ngSubmit)="onSubmit()"
+        class="flex flex-column"
+    >
+        <mat-form-field>
+            <input
+                name="sourceAccountNumber"
+                type="text"
+                placeholder="Select Source Account Number"
+                aria-label="Number"
+                matInput
+                [formControl]="paymentForm.controls.sourceAccountNumber"
+                [matAutocomplete]="auto"
+            >
+            <mat-autocomplete
+                autoActiveFirstOption
+                #auto="matAutocomplete"
+            >
+                <mat-option
+                    *ngFor="let option of filteredAccounts | async"
+                    [value]="option.accountNumber"
+                >
+                    {{option.accountNumber + " " + option.accountHolderName}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="paymentForm.controls.sourceAccountNumber.status ==='INVALID'">
+                {{getErrorMessage('sourceAccountNumber')}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                name="destinationAccountNumber"
+                type="text"
+                placeholder="Select Destination Account Number"
+                aria-label="Number"
+                matInput
+                [formControl]="paymentForm.controls.destinationAccountNumber"
+                [matAutocomplete]="auto"
+            >
+            <mat-autocomplete
+                autoActiveFirstOption
+                #auto="matAutocomplete"
+            >
+                <mat-option
+                    *ngFor="let option of filteredDestinationAccounts | async"
+                    [value]="option.accountNumber"
+                >
+                    {{option.accountNumber + " " + option.accountHolderName}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="paymentForm.controls.destinationAccountNumber.status ==='INVALID'">
+                {{getErrorMessage('destinationAccountNumber')}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Currency</mat-label>
+            <mat-select [formControl]="paymentForm.controls.currencyCode">
+                <mat-option
+                    *ngFor="let currency of (currencyCodes$ | async)"
+                    [value]="currency"
+                >
+                    {{currency}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="paymentForm.controls.currencyCode.status ==='INVALID'">
+                {{getErrorMessage('currencyCode')}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Amount"
+                type="number"
+                [formControl]="paymentForm.controls.amount"
+            >
+            <mat-error *ngIf="paymentForm.controls.amount.status ==='INVALID'">
+                {{getErrorMessage('amount')}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                placeholder="Payment Description"
+                type="text"
+                [formControl]="paymentForm.controls.paymentDescription"
+            >
+        </mat-form-field>
+
+        <div>
+            <button
+                mat-button
+                color="primary"
+                type="submit"
+            >
+                Submit
+            </button>
+            <button mat-button type="button" (click)="cancelPayment()">Cancel</button>
+
+        </div>
+    </form>
+</app-card>

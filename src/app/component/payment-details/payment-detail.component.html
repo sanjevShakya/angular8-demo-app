@@ -1,0 +1,20 @@
+<app-card title="Payment Details" [goBack]="navigateToPayments">
+    <div *ngIf="payment$ | async as payment">
+        <h3>
+            <span class="h3-subtitle">From A/N</span>
+            {{payment.sourceAccountNumber}}
+            <span class="h3-subtitle">to A/N</span>
+            {{payment.destinationAccountNumber}}
+        </h3>
+        <div class="content-container">
+            <p class="content-subtitle">Amount</p>
+            <p class="content">
+                {{ payment.currencyCode + " " +payment.amount }}
+            </p>
+        </div>
+        <div class="content-container">
+            <p class="content-subtitle">Payment Description</p>
+            <p class="content">{{ payment.paymentDescription || '-' }}</p>
+        </div>
+    </div>
+</app-card>

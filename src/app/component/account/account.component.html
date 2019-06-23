@@ -1,0 +1,61 @@
+<app-card title="Account List" [actionButtonConfig]="actionButtonConfig">
+
+  <input class="grid-search" type="text" placeholder="Search..." [formControl]="searchText"/>
+
+  <div class="grid">
+        <div class="grid-header">
+            <ul class="flex">
+                <li
+                    *ngFor="let header of gridHeaders"
+                    [ngClass]="header.classes"
+                >
+                    <strong>{{ header.displayName }}</strong>
+                </li>
+            </ul>
+        </div>
+        <div class="grid-body-wrapper">
+            <ul class="grid-body-content">
+              <div *ngIf="!searchText.value">
+                    <li  *ngFor="let account of (accounts$ | async ); index as i">
+                        <div
+                            class="flex"
+                            *ngFor="let header of gridHeaders"
+                            [ngClass]="header.classes"
+                        >
+                            <span *ngIf="header.name === 'sn'">{{i + 1 }}</span>
+                            <span *ngIf="header.type === 'content'">{{ account[header.name] || '-' }}</span>
+                            <button
+                                mat-button
+                                *ngIf="header.name === 'action'"
+                                [title]="account.accountName"
+                                [routerLink]="['/accounts', account.id]"
+                            >
+                                Details
+                            </button>
+                        </div>
+                    </li>
+              </div>
+              <div *ngIf="(searchText.value)">
+                <li  *ngFor="let account of (filteredAccounts$ | async ); index as i">
+                    <div
+                        class="flex"
+                        *ngFor="let header of gridHeaders"
+                        [ngClass]="header.classes"
+                    >
+                        <span *ngIf="header.name === 'sn'">{{i + 1 }}</span>
+                        <span *ngIf="header.type === 'content'">{{ account[header.name] }}</span>
+                        <button
+                            mat-button
+                            *ngIf="header.name === 'action'"
+                            [title]="account.accountName"
+                            [routerLink]="['/accounts', account.id]"
+                        >
+                            Details
+                        </button>
+                    </div>
+                </li>
+              </div>
+            </ul>
+        </div>
+    </div>
+</app-card>

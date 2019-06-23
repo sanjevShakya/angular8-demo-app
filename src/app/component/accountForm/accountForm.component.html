@@ -1,0 +1,71 @@
+<app-card
+    title="Add Account"
+    [goBack]="cancelAddAccount"
+>
+    <form
+        [formGroup]="accountForm"
+        (ngSubmit)="onSubmit(accountForm.value)"
+        class="flex flex-column"
+    >
+
+        <mat-form-field>
+            <input
+                matInput
+                name="accountNumber"
+                placeholder="Enter your account number"
+                [formControl]="accountForm.controls.accountNumber"
+                required
+            >
+            <mat-error *ngIf="accountForm.controls.accountNumber.status ==='INVALID'">{{getErrorMessage('accountNumber')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                name="accountHolderName"
+                placeholder="Enter your account holders name"
+                [formControl]="accountForm.controls.accountHolderName"
+                required
+            >
+            <mat-error *ngIf="accountForm.controls.accountHolderName.status ==='INVALID'">
+                {{getErrorMessage('accountHolderName')}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                name="accountHolderPhoneNumber"
+                placeholder="Enter your account holder's phone number"
+                [formControl]="accountForm.controls.accountHolderPhoneNumber"
+            >
+            <mat-error *ngIf="accountForm.controls.accountHolderPhoneNumber.status ==='INVALID'">
+                {{getErrorMessage('accountHolderPhoneNumber')}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                name="accountDescription"
+                placeholder="Enter your account description"
+                [formControl]="accountForm.controls.accountDescription"
+            >
+            <mat-error *ngIf="accountForm.controls.accountDescription.status ==='INVALID'">
+                {{getErrorMessage('accountDescription')}}
+            </mat-error>
+        </mat-form-field>
+
+        <div>
+            <button
+                mat-button
+                color="primary"
+                type="submit"
+            >
+                Submit
+            </button>
+            <button mat-button type="button" (click)="cancelAddAccount()">Cancel</button>
+        </div>
+
+    </form>
+</app-card>
